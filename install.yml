@@ -1,0 +1,12 @@
+---
+- name: Install ansible-worker-poller for find-it-fix-it demo
+  hosts: localhost
+  gather_facts: false
+  tasks:
+      - pip:
+          name: ansible
+      - pip:
+          name: ansible-runner
+      - pip:
+          name: git+http://github.com/benthomasson/ansible-worker-poller
+...
