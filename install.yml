@@ -3,6 +3,15 @@
   hosts: all
   gather_facts: false
   tasks:
+      - package:
+          name: '{{ item }}'
+          state: 'installed'
+        loop:
+            - gcc
+            - redhat-rpm-config
+            - python3
+            - python3-devel
+            - git
       - pip:
           name: ansible
       - pip:
@@ -10,5 +19,15 @@
       - pip:
           name: git+http://github.com/benthomasson/ansible-worker-poller
           state: latest
-      - command: ansible_worker_poller https://nginx-find-it-fix-it.5a9f.insights-dev.openshiftapps.com 1 --wait_time=0.1
+      - template:
+          src: templates/fifi.service.j2
+          dest: /usr/lib/systemd/system/fifi.service
+          mode: 0644
+          owner: root
+          group: root
+      - systemd:
+          state: started
+          name: fifi.service
+          daemon_reload: true
+          enabled: true
 ...

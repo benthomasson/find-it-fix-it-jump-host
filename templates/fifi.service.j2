@@ -1,0 +1,10 @@
+[Unit]
+Requires=network.target
+
+[Service]
+Type=simple
+ExecStart=ansible_worker_poller https://nginx-find-it-fix-it.5a9f.insights-dev.openshiftapps.com 1 --wait_time=1
+Restart=yes
+
+[Install]
+WantedBy=default.target
