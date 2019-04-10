@@ -13,12 +13,12 @@
             - python3-devel
             - git
       - pip:
-          name: ansible
-      - pip:
-          name: ansible-runner
-      - pip:
-          name: git+http://github.com/benthomasson/ansible-worker-poller
+          name: '{{ item }}'
           state: latest
+        loop:
+            - ansible
+            - ansible-runner
+            - 'git+http://github.com/benthomasson/ansible-worker-poller'
       - template:
           src: templates/fifi.service.j2
           dest: /usr/lib/systemd/system/fifi.service
